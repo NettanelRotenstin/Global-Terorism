@@ -3,11 +3,11 @@ import ILocation from "../Types/Interfaces/ILocation"
 
 export const locationSchema = new Schema<ILocation>({
    lat:{
-        type:String,
-        required:true
+        type:Number,
+        default:0
     },
     lon:{
-        type:String,
+        type:Number,
         required:true
     }
 })
