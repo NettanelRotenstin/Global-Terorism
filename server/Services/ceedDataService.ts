@@ -5,6 +5,7 @@ import IQ1 from '../Types/Interfaces/IQ1'
 import { calcCasualties } from '../Utils/calculator'
 import { q2Model } from '../Models/q2Model'
 import { locationModel } from '../Models/locationModel'
+import { q3Model } from '../Models/q3Model'
 
 //ceed the kindattack1 to the db model
 export const ceedSchema1 = async (): Promise<void> => {
@@ -56,8 +57,8 @@ export const ceedSchema2 = async (): Promise<void> => {
             casualties = calcCasualties(element.nkill, element.nwound)
             let existing: mongoose.AnyObject = q2Model.findOne({ region: element.region_txt, country: element.country, city: element.city })
             if (!existing) {
-                const location = new locationModel({lat:element.latitude,lon:element.longitude})
-                const newQ2 = new q2Model({ region: element.region_txt, country: element.country, city: element.city,locationArr:[location] })
+                const location = new locationModel({ lat: element.latitude, lon: element.longitude })
+                const newQ2 = new q2Model({ region: element.region_txt, country: element.country, city: element.city, locationArr: [location] })
                 await newQ2.save()
             }
             else {
@@ -69,4 +70,25 @@ export const ceedSchema2 = async (): Promise<void> => {
         console.log(error)
     }
 }
+
+//ceed for schema3
+export const ceedSchema3 = async (): Promise<void> => {
+    try {
+        for (const element of data as any[]) {
+            let existing: mongoose.AnyObject = q3Model.findOne({ year: element.iyear, month: element.imonth })
+            if (!existing) {
+                const newQ3 = new q3Model({ year: element.iyear, month: element.imonth, numEvent: 1 })
+                await newQ3.save()
+            }
+            else {
+                existing.numEnent += 1
+                existing.save()
+            }
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
  
