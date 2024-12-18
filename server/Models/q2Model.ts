@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose"
+import mongoose, { model, Schema } from "mongoose"
 import IQ2 from "../Types/Interfaces/IQ2"
 import { locationModel } from "./locationModel"
 
@@ -18,8 +18,8 @@ export const q2Schema = new Schema<IQ2>({
         type:String
     },
     locationArr:[{
-        type:locationModel,
-        default:[]
+        type:mongoose.Schema.ObjectId,
+        ref:'location'
     }]
 })
    
