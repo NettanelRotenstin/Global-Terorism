@@ -9,6 +9,7 @@ import fs from 'fs/promises';
 import { orgaAndLocateModel } from '../Models/orgaAndLocateModel'
 import { q4Model } from '../Models/q4Model'
 import { q5Model } from '../Models/q5Model'
+import { q6Model } from '../Models/q6Model'
 
 export const getFileData = async <T>(): Promise<T[] | void> => {
     try {
@@ -35,10 +36,10 @@ export const ceedSchema1 = async (): Promise<void> => {
             }
             else {
                 existing.numCasualties += casualties
-                existing.save()
+                await existing.save()
             }
         }
-        console.log('1')
+        
     } catch (error) {
         console.log(error)
     }
@@ -57,13 +58,13 @@ export const ceedSchema1Attack2 = async (): Promise<void> => {
                 const newQ1 = new q1Model({ attackType: element.attacktype2_txt, numCasualties: casualties })
                 await newQ1.save()
             }
-
+             
             else {
                 existing.numCasualties += casualties
-                existing.save()
+                await existing.save()
             }
         }
-
+        console.log('1')
     } catch (error) {
         console.log(error)
     }
@@ -85,7 +86,7 @@ export const ceedSchema2 = async (): Promise<void> => {
             else {
                 existing.numCasualties += casualties
                 existing.locationArr.push(location)
-                existing.save()
+                await existing.save()
             }
         }
         console.log(2)
@@ -106,7 +107,7 @@ export const ceedSchema3 = async (): Promise<void> => {
             }
             else {
                 existing.numEvent = existing.numEvent + 1
-                existing.save()
+                await existing.save()
             }
         }
         console.log(3)
@@ -127,10 +128,10 @@ export const ceedOrgan = async (): Promise<void> => {
             }
             else {
                 existing.numEvent += 1
-                existing.save()
+                await existing.save()
             }
         }
-        console.log(4)
+        
     } catch (error) {
         console.log(error)
     }
@@ -155,6 +156,7 @@ export const ceedSchema4 = async (): Promise<void> => {
                 continue
             }
         }
+        console.log(4)
     } catch (error) {
         console.log(error)
     }
@@ -172,10 +174,33 @@ export const ceedSchema5 = async (): Promise<void> => {
             }
             else {
                 existing.numEvent = existing.numEvent + 1
-                existing.save()
+                await existing.save()
             }
         }
         console.log(5)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//ceed for schema6
+export const ceedSchema6 = async (): Promise<void> => {
+    try {
+        const data: any = await getFileData()
+        let casualties: number = 0
+        for (const element of data as any[]) {
+            casualties = await calcCasualties(element.nkill, element.nwound)
+            let existing: mongoose.AnyObject | null = await q6Model.findOne({ region: element.region_txt, organName: element.gname })
+            if (!existing) {
+                const newQ6 = new q6Model({ region: element.region_txt, organName: element.gname ,numCasualties:casualties })
+                await newQ6.save()
+            }
+            else {
+                existing.numCasualties = existing.numCasualties + casualties
+                await existing.save()
+            }
+        }
+        console.log(6)
     } catch (error) {
         console.log(error)
     }
