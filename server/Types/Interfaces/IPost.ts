@@ -1,13 +1,13 @@
 export default interface IPost{
     attackType?:string
     nkill?:number
-    mwound?:number
+    nwound?:number
     region:string
     country?:string
     city?:string
-    lat:number
-    lon:number
-    organName:string
-    year:number
-    month:number
+    lat?:number
+    lon?:number
+    organName?:string
+    year?:number
+    month?:number
 }

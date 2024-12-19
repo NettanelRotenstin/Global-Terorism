@@ -9,6 +9,9 @@ import IQ2 from "../Types/Interfaces/IQ2";
 import IQ3 from "../Types/Interfaces/IQ3";
 import IQ4 from "../Types/Interfaces/IQ4";
 import '../Models/locationModel'
+import IQ6 from "../Types/Interfaces/IQ6";
+import { q6Model } from "../Models/q6Model";
+import { calcMost } from "../Utils/calculator";
 
 export const getQ1Service = async () => {
     try {
@@ -61,3 +64,18 @@ export const getQ4ServiceArea = async (reg:string) => {
         throw error;
     }
 }
+
+export const getQ6ServiceArea = async (org:string) => {
+    try {
+        const result: IQ6[] | any = await q6Model.find({organName:org})
+        const calcmost = calcMost(result)
+        console.log(result)
+        return result
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+// organName:string
+// numCasualties:number
+// region:string
