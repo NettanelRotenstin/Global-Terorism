@@ -7,10 +7,14 @@ export const q5Schema = new Schema<IQ5>({
         type: String,
         required: true
     },
-    numEnent: {
+    numEvent: {
         type: Number,
         default:0
-    } 
+    },
+    year:{
+        type:Number,
+        required:true
+    }
 })
 
 

@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose"
+import mongoose, { model, Schema } from "mongoose"
 import IQ4 from "../Types/Interfaces/IQ4"
 import { orgaAndLocateModel } from "./orgaAndLocateModel"
 
@@ -9,8 +9,10 @@ export const q4Schema = new Schema<IQ4>({
         required: true
     },
     organizeTopFive: [{
-        type: orgaAndLocateModel,
-        maxlength:5
+        type: mongoose.Types.ObjectId,
+        ref:'orgaAndLocate',
+        maxlength:5,
+        required:false
     } ]
 })
 
