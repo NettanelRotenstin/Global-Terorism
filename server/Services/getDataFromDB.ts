@@ -76,6 +76,4 @@ export const getQ6ServiceArea = async (org:string) => {
         throw error;
     }
 }
-// organName:string
-// numCasualties:number
-// region:string
+ 
