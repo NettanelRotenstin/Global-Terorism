@@ -48,7 +48,6 @@ const postQ1 = async (event: IPost) => {
 const postQ2 = async (event: IPost, location: ILocation) => {
     try {
         const { attackType, nkill, nwound, region, country, city, lat, lon, organName, year, month } = event
-        const extQ1 = await q1Model.findOne({ attackType })
         const extQ2 = await q2Model.findOne({ region, country, city })
         if (!extQ2) {
             const newQ2 = new q2Model({ region, numCasualties: calcCasualties(nkill, nwound), country, city, locationArr: [location] })
@@ -67,7 +66,6 @@ const postQ2 = async (event: IPost, location: ILocation) => {
 const postQ3 = async (event: IPost) => {
     try {
         const { attackType, nkill, nwound, region, country, city, lat, lon, organName, year, month } = event
-        const extQ1 = await q1Model.findOne({ attackType })
 
         const extQ3 = await q3Model.findOne({ year, month })
         if (!extQ3) {
@@ -86,7 +84,6 @@ const postQ3 = async (event: IPost) => {
 const postQ4 = async (event: IPost) => {
     try {
         const { attackType, nkill, nwound, region, country, city, lat, lon, organName, year, month } = event
-        const extQ1 = await q1Model.findOne({ attackType })
 
         const extQ4 = await q4Model.findOne({ region })
         if (!extQ4) {
@@ -101,7 +98,6 @@ const postQ4 = async (event: IPost) => {
 const postQ5 = async (event: IPost) => {
     try {
         const { attackType, nkill, nwound, region, country, city, lat, lon, organName, year, month } = event
-        const extQ1 = await q1Model.findOne({ attackType })
 
         const extQ5 = await q5Model.findOne({ organizationName: organName, year })
         if (!extQ5) {
@@ -120,7 +116,6 @@ const postQ5 = async (event: IPost) => {
 const postQ6 = async (event: IPost) => {
     try {
         const { attackType, nkill, nwound, region, country, city, lat, lon, organName, year, month } = event
-        const extQ1 = await q1Model.findOne({ attackType })
 
         const extQ6 = await q6Model.findOne({ organName, region })
         if (!extQ6) {
