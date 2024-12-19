@@ -79,6 +79,7 @@ export const ceedSchema2 = async (): Promise<void> => {
             casualties = calcCasualties(element.nkill, element.nwound)
             let existing: mongoose.AnyObject | null = await q2Model.findOne({ region: element.region_txt, country: element.country_txt, city: element.city })
             const location = new locationModel({ lat: element.latitude, lon: element.longitude })
+            await location.save()
             if (!existing) {
                 const newQ2 = new q2Model({ region: element.region_txt, country: element.country_txt, city: element.city, locationArr: [location] })
                 await newQ2.save()
@@ -149,7 +150,7 @@ export const ceedSchema4 = async (): Promise<void> => {
             if (!existing) {
                 const newQ4 = new q4Model({ region: element.region_txt })
                 let orgs = await orgaAndLocateModel.find({ region: element.region_txt }).sort({ numEvent: -1 })
-                newQ4.organizeTopFive.push(orgs[4], orgs[3], orgs[2], orgs[1], orgs[0])
+                newQ4.organizeTopFive.push(orgs[0]._id as any, orgs[1]._id as any, orgs[2]._id as any, orgs[3]._id as any, orgs[4]._id as any)
                 await newQ4.save()
             }
             else {
