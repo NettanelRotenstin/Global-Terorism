@@ -207,3 +207,22 @@ export const ceedSchema6 = async (): Promise<void> => {
     }
 }
  
+// //ceed for schema6
+// export const ceedSommary = async (): Promise<void> => {
+//     try {
+//         const data: any = await getFileData()
+//         let casualties: number = 0
+//         for (const element of data as any[]) {
+//                 const newQ6 = new q6Model({ region: element.region_txt, organName: element.gname ,numCasualties:casualties })
+//                 await newQ6.save()
+//             }
+//             else {
+//                 existing.numCasualties = existing.numCasualties + casualties
+//                 await existing.save()
+//             }
+//         }
+//         console.log(6)
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }

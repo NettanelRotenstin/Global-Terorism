@@ -1,4 +1,4 @@
-export default interface IPost{
+export default interface IPost{   
     attackType?:string
     nkill?:number
     nwound?:number
