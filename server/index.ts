@@ -11,6 +11,8 @@ import { deleteEvent } from './Services/deleteService';
 import http from 'http'
 import { Server } from 'socket.io';
 import { handelSocketConnection } from './Socket/funcsForSocket';
+import analystRouter from './Routes/analystRouter';
+import relationshipRouter from './Routes/relationshipRouter';
 
 const app = express();
 export const server = http.createServer(app)
@@ -24,6 +26,9 @@ export const io = new Server(server, {
 app.use(cors());
 app.use(express.json());
 io.on('connection',handelSocketConnection)
+
+app.use("/api/analysis", analystRouter)
+app.use("/api/relationships", relationshipRouter)
  
 server.listen(process.env.PORT, () => {
   console.log(`[server] I'm up on port ${process.env.PORT}`);
