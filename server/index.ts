@@ -14,8 +14,7 @@ connentToMongo();
 
 app.use(cors());
 app.use(express.json());
-const evenb:IPost = {attackType:'g',nkill:1,nwound:1,region:'g',country:'g',city:'g',lat:1,lon:1,organName:'g',year:1,month:1}
-postEvent(evenb) 
+ 
 app.listen(process.env.PORT, () => {
   console.log(`[server] I'm up on port ${process.env.PORT}`);
 });
