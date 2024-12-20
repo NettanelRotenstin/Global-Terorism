@@ -1,4 +1,5 @@
 import { locationModel } from "../Models/locationModel";
+import { orgaAndLocateModel } from "../Models/orgaAndLocateModel";
 import { q1Model } from "../Models/q1Model";
 import { q2Model } from "../Models/q2Model";
 import { q3Model } from "../Models/q3Model";
@@ -20,6 +21,8 @@ export const postEvent = async (event: IPost) => {
         await postQ4(event)
         await postQ5(event)
         await postQ6(event)  
+        await postOrga(event)
+        await calcTopFive(event)
     } catch (error) {
         console.log(error)
     }
@@ -129,5 +132,42 @@ const postQ6 = async (event: IPost) => {
         return
     } catch (error) {
         console.log(error)
+    }
+}
+
+const postOrga = async (event: IPost) => {
+    try {
+        const { organName,region } = event
+
+        const extOrg = await orgaAndLocateModel.findOne({ organName, region })
+        if (!extOrg) {
+            const newOrg = new orgaAndLocateModel({ organName, region, numEvent:1 })
+            await newOrg.save()
+        }
+        else {
+            extOrg.numEvent = extOrg.numEvent + 1
+            await extOrg.save()
+        }
+        return
+    } catch (error) {
+        console.log(error)
+    }
+}
+ 
+export const calcTopFive = async (event:IPost)=>{
+    try {
+        const { organName,region } = event
+        let existing: any = await q4Model.findOne({ region })
+            if (!existing) {
+                 throw new Error()
+            }
+            else{
+                let orgs = await orgaAndLocateModel.find({ region }).sort({ numEvent: -1 })
+                existing.organizeTopFive = []
+                existing.organizeTopFive.push(orgs[0]._id as any, orgs[1]._id as any, orgs[2]._id as any, orgs[3]._id as any, orgs[4]._id as any)
+                await existing.save()
+            }
+    } catch (error) {
+        
     }
 }

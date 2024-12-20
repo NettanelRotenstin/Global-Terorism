@@ -29,7 +29,7 @@ io.on('connection',handelSocketConnection)
 
 app.use("/api/analysis", analystRouter)
 app.use("/api/relationships", relationshipRouter)
-ceedSummary()
+ 
  server.listen(process.env.PORT, () => {
   console.log(`[server] I'm up on port ${process.env.PORT}`);
 });
