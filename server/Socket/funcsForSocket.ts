@@ -35,59 +35,59 @@ export const handelSocketConnection = async (client: Socket) => {
         client.emit('kind-attack', await getQ1Service())
     })
 
-    client.on('all-most-hurts',async()=>{
-        client.emit('all-most-hurts',await getQ2Service())
+    client.on('all-most-hurts', async () => {
+        client.emit('all-most-hurts', await getQ2Service())
     })
 
-    client.on('city-most-hurts',async(city:string)=>{
-        client.emit('city-most-hurts',await getQ2ByCityService(city))
+    client.on('city-most-hurts', async (city: string) => {
+        client.emit('city-most-hurts', await getQ2ByCityService(city))
     })
 
-    client.on('country-most-hurts',async(country:string)=>{
-        client.emit('city-most-hurts',await getQ2ByContryService(country))
+    client.on('country-most-hurts', async (country: string) => {
+        client.emit('city-most-hurts', await getQ2ByContryService(country))
     })
 
-    client.on('region-most-hurts',async(region:string)=>{
-        client.emit('region-most-hurts',await getQ2ByRegionService(region))
+    client.on('region-most-hurts', async (region: string) => {
+        client.emit('region-most-hurts', await getQ2ByRegionService(region))
     })
 
-    client.on('all-trend',async()=>{
-        client.emit('all-trend',await getQ3Service())
+    client.on('all-trend', async () => {
+        client.emit('all-trend', await getQ3Service())
     })
 
-    client.on('year-trend',async(year:string)=>{
-        client.emit('year-trend',await getQ3ByYearService(year))
+    client.on('year-trend', async (year: string) => {
+        client.emit('year-trend', await getQ3ByYearService(year))
     })
 
-    client.on('year-range-trend',async(yearStart:string,yearEnd:string)=>{
-        client.emit('year-range-trend',await getQ3ByYearRangeService(yearStart,yearEnd))
+    client.on('year-range-trend', async (yearStart: string, yearEnd: string) => {
+        client.emit('year-range-trend', await getQ3ByYearRangeService(yearStart, yearEnd))
     })
 
-    client.on('5year-trend',async()=>{
-        client.emit('5year-trend',await getQ3By5YearsService())
+    client.on('5year-trend', async () => {
+        client.emit('5year-trend', await getQ3By5YearsService())
     })
 
-    client.on('10year-trend',async()=>{
-        client.emit('10year-trend',await getQ3By10YearsService())
+    client.on('10year-trend', async () => {
+        client.emit('10year-trend', await getQ3By10YearsService())
     })
 
-    client.on('all-region-topFive',async()=>{
-        client.emit('all-region-topFive',await getQ4ServiceAll())
+    client.on('all-region-topFive', async () => {
+        client.emit('all-region-topFive', await getQ4ServiceAll())
     })
 
-    client.on('region-topFive',async(region:string)=>{
-        client.emit('region-topFive',await getQ4ServiceArea(region))
+    client.on('region-topFive', async (region: string) => {
+        client.emit('region-topFive', await getQ4ServiceArea(region))
     })
 
-    client.on('events-year',async(year:number)=>{
-        client.emit('events-year',await getQ5ByYearService(year))
+    client.on('events-year', async (year: number) => {
+        client.emit('events-year', await getQ5ByYearService(year))
     })
 
-    client.on('org-event',async(org:string)=>{
-        client.emit('org-event',await getQ5ByOrgService(org))
+    client.on('org-event', async (org: string) => {
+        client.emit('org-event', await getQ5ByOrgService(org))
     })
 
-    client.on('org-most-events-area',async(org:string)=>{
-        client.emit('org-event',await getQ6ServiceArea(org))
+    client.on('org-most-events-area', async (org: string) => {
+        client.emit('org-most-events-area', await getQ6ServiceArea(org))
     })
 }
