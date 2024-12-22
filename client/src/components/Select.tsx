@@ -8,13 +8,18 @@ import { socket } from '../main';
 interface Props {
   markers: IPropsForMarkers[]
   setMarkers: any
+  filter:number
+  setFilter:any
+  queries:IQuery[]
 }
+ 
 
-export default function Select({ markers, setMarkers }: Props) {
-  const [filter, setFilter] = React.useState<number>(0);
-  const [queries, setqueries] = useState<IQuery[]>([query1, query2, query3, query4, query5, query6, query7, query8, query9, query10, query11, query12, query13, query14])
+export default function Select({ markers, setMarkers,filter,setFilter,queries }: Props) {
   const [areaBool, setareaBool] = useState(false)
   const [area, setarea] = useState("")
+  const [countryBool, setcountryBool] = useState(false)
+  const [country, setcountry] = useState("")
+  
   useEffect(() => {
     if (filter == 1)
       socket.emit('kind-attacks',)
@@ -24,9 +29,18 @@ export default function Select({ markers, setMarkers }: Props) {
 
     if (filter == 2.1)
       setareaBool(true)
-      socket.emit('region-most-hurts',area)
+
+    if (filter == 2.2)
+      setcountryBool(true)
   }, [filter])
 
+  const sendEmitArea = ()=>{
+    socket.emit('region-most-hurts',area)
+  }
+
+  const sendEmitCountry = ()=>{
+    socket.emit('country-most-hurts',country)
+  }
 
 
   useEffect(() => {
@@ -40,13 +54,16 @@ export default function Select({ markers, setMarkers }: Props) {
         <option selected value={queries[0].value}>{queries[0].sentence}</option>
         <option value={queries[1].value}>{queries[1].sentence}</option>
         <option value={queries[2].value}>{queries[2].sentence}</option>
+        <option value={queries[3].value}>{queries[3].sentence}</option>
         <option value={queries[5].value}>{queries[5].sentence}</option>
         <option value={queries[9].value}>{queries[9].sentence}</option>
         <option value={queries[11].value}>{queries[11].sentence}</option>
         <option value={queries[13].value}>{queries[13].sentence}</option>
       </select>
       {areaBool ? <input placeholder='enter region:' onChange={(e) => setarea(e.target.value)}></input> : 1}
-
+      {areaBool?<button onClick={()=>sendEmitArea}>send query</button>:1}
+      {countryBool ? <input placeholder='enter country:' onChange={(e) => setcountry(e.target.value)}></input> : 1}
+      {countryBool?<button onClick={()=>sendEmitCountry}>send query</button>:1}
     </>
   );
 }
