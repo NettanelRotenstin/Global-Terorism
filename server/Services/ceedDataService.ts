@@ -109,6 +109,10 @@ export const ceedSameTime1 = async () => {
                 existingQ6.numCasualties = existingQ6.numCasualties + casualties
                 await existingQ6.save()
             }
+            //end schema 6
+            const { eventid, iyear, imonth, iday, country_txt, region_txt, city, latitude, longitude, attacktype1_txt, targtype1_txt, target1, gname, weaptype1_txt, nkill, nwound, nperps, summary } = element;
+            const newSummary = new summaryModel({ eventid, iyear, imonth, iday, country_txt, region_txt, city, latitude, longitude, attacktype1_txt, targtype1_txt, target1, gname, weaptype1_txt, nkill, nwound, nperps, summary })
+            await newSummary.save();
         }
         console.log('ceed 1 done!')
     } catch (error) {
@@ -122,8 +126,6 @@ export const ceedSameTime2 = async()=>{
         const data: any = await getFileData()
         let casualties2: number = 0
         for (const element of data as any[]) {
-             
-
             let existingQ4: mongoose.AnyObject | null = await q4Model.findOne({ region: element.region_txt })
             if (!existingQ4) {
                 const newQ4 = new q4Model({ region: element.region_txt })
@@ -327,16 +329,16 @@ export const ceedSameTime2 = async()=>{
 //     }
 // }
 
-export const ceedSummary = async () => {
-    try {
-        const data: any = await getFileData();
-        for (const element of data as any[]) {
-            const { eventid, iyear, imonth, iday, country_txt, region_txt, city, latitude, longitude, attacktype1_txt, targtype1_txt, target1, gname, weaptype1_txt, nkill, nwound, nperps, summary } = element;
-            const newSummary = new summaryModel({ eventid, iyear, imonth, iday, country_txt, region_txt, city, latitude, longitude, attacktype1_txt, targtype1_txt, target1, gname, weaptype1_txt, nkill, nwound, nperps, summary })
-            await newSummary.save();
-        }
-        console.log('summery done!');
-    } catch (err) {
-        console.log(err);
-    }
-}
+// export const ceedSummary = async () => {
+//     try {
+//         const data: any = await getFileData();
+//         for (const element of data as any[]) {
+//             const { eventid, iyear, imonth, iday, country_txt, region_txt, city, latitude, longitude, attacktype1_txt, targtype1_txt, target1, gname, weaptype1_txt, nkill, nwound, nperps, summary } = element;
+//             const newSummary = new summaryModel({ eventid, iyear, imonth, iday, country_txt, region_txt, city, latitude, longitude, attacktype1_txt, targtype1_txt, target1, gname, weaptype1_txt, nkill, nwound, nperps, summary })
+//             await newSummary.save();
+//         }
+//         console.log('summery done!');
+//     } catch (err) {
+//         console.log(err);
+//     }
+// }

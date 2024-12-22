@@ -13,6 +13,7 @@ import IQ6 from "../Types/Interfaces/IQ6";
 import { q6Model } from "../Models/q6Model";
 import { calcMost } from "../Utils/calculator";
 import { q5Model } from "../Models/q5Model";
+import { locationModel } from "../Models/locationModel";
 
 export const getQ1Service = async () => {
     try {
@@ -195,3 +196,10 @@ export const getQ5ByYearService = async (year: number) => {
     }
   };
  
+  export const allLocations = async()=>{
+    try {
+        return await locationModel.find({})
+    } catch (error) {
+        throw error
+    }
+  }

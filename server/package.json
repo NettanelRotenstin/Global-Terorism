@@ -16,7 +16,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon dist/index"
+    "dev": "nodemon dist/index"
   },
   "author": "",
   "license": "ISC",

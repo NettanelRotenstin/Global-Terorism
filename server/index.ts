@@ -12,7 +12,7 @@ import { Server } from 'socket.io';
 import { handelSocketConnection } from './Socket/funcsForSocket';
 import analystRouter from './Routes/analystRouter';
 import relationshipRouter from './Routes/relationshipRouter';
-import { ceedSameTime1, ceedSameTime2, ceedSummary } from './Services/ceedDataService';
+import { ceedSameTime1, ceedSameTime2 } from './Services/ceedDataService';
 
 const app = express();
 export const server = http.createServer(app)
