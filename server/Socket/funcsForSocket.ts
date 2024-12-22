@@ -44,7 +44,7 @@ export const handelSocketConnection = async (client: Socket) => {
     })
 
     client.on('country-most-hurts', async (country: string) => {
-        client.emit('city-most-hurts', await getQ2ByContryService(country))
+        client.emit('country-most-hurts', await getQ2ByContryService(country))
     })
 
     client.on('region-most-hurts', async (region: string) => {

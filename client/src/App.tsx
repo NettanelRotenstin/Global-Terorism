@@ -49,6 +49,96 @@ export default function App() {
     setmarkers(list)
   })
 
+  socket.on('city-most-hurts', (data) => {
+    const list = []
+    for (const element of data as IPropsForMarkers[]) {
+      const avarage = element.numCasualties as number / element.locationArr!.length as number
+      const dataNaccessery = {region:element.region,numCasualties:avarage,country:element.country,city:element.city,locationArr:element.locationArr}
+      list.push(dataNaccessery)
+    }  
+    setmarkers(list)
+  })
+
+  socket.on('year-trend', (data) => {
+    const list = []
+    for (const element of data as IPropsForMarkers[]) {
+      const dataNaccessery = {year:element.year,month:element.month,numEvent:element.numEvent}
+      list.push(dataNaccessery)
+    }  
+    setmarkers(list)
+  })
+
+  socket.on('year-range-trend', (data) => {
+    const list = []
+    for (const element of data as IPropsForMarkers[]) {
+      const dataNaccessery = {year:element.year,month:element.month,numEvent:element.numEvent}
+      list.push(dataNaccessery)
+    }  
+    setmarkers(list)
+  })
+
+  socket.on('5year-trend', (data) => {
+    const list = []
+    for (const element of data as IPropsForMarkers[]) {
+      const dataNaccessery = {year:element.year,month:element.month,numEvent:element.numEvent}
+      list.push(dataNaccessery)
+    }  
+    setmarkers(list)
+  })
+
+  socket.on('10year-trend', (data) => {
+    const list = []
+    for (const element of data as IPropsForMarkers[]) {
+      const dataNaccessery = {year:element.year,month:element.month,numEvent:element.numEvent}
+      list.push(dataNaccessery)
+    }  
+    setmarkers(list)
+  })
+
+  socket.on('region-topFive', (data) => {
+    const list = []
+    for (const element of data as IPropsForMarkers[]) {
+      const dataNaccessery = {region:element.region,organizeTopFive:element.organizeTopFive}
+      list.push(dataNaccessery)
+    }  
+    setmarkers(list)
+  })
+
+  socket.on('all-region-topFive', (data) => {
+    const list = []
+    for (const element of data as IPropsForMarkers[]) {
+      const dataNaccessery = {region:element.region,organizeTopFive:element.organizeTopFive}
+      list.push(dataNaccessery)
+    }  
+    setmarkers(list)
+  })
+
+  socket.on('events-year', (data) => {
+    const list = []
+    for (const element of data as IPropsForMarkers[]) {
+      const dataNaccessery = {organizationName:element.organizationName,numEvent:element.numEvent,year:element.year}
+      list.push(dataNaccessery)
+    }  
+    setmarkers(list)
+  })
+
+  socket.on('org-event', (data) => {
+    const list = []
+    for (const element of data as IPropsForMarkers[]) {
+      const dataNaccessery = {organizationName:element.organizationName,numEvent:element.numEvent,year:element.year}
+      list.push(dataNaccessery)
+    }  
+    setmarkers(list)
+  })
+
+  socket.on('org-most-events-area', (data) => {
+    const list = []
+    for (const element of data as IPropsForMarkers[]) {
+      const dataNaccessery = {organizationName:element.organizationName,numEvent:element.numEvent,year:element.year}
+      list.push(dataNaccessery)
+    }  
+    setmarkers(list)
+  })
   return (
     <div>
       App
