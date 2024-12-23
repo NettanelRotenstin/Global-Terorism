@@ -139,7 +139,7 @@ export const getQ3By10YearsService = async () => {
 
 export const getQ4ServiceAll = async () => {
     try {
-        const result: IOrgaAndLocate[] = await orgaAndLocateModel.find({}).sort({ numEvent: -1 })
+        const result: IQ4[] = await q4Model.find({}).sort({ numEvent: -1 }).populate('organizeTopFive')
         return result
     } catch (error) {
         console.error(error);
@@ -151,7 +151,7 @@ export const getQ4ServiceArea = async (reg: string) => {
     try {
         const result: IQ4[] | any = await q4Model.findOne({ region: reg }).populate('organizeTopFive')
         console.log(result)
-        return result
+        return [result]
     } catch (error) {
         console.error(error);
         throw error;
