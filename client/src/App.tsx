@@ -6,6 +6,8 @@ import IQuery from './Types/interfaces/IQuery';
 import Graph from './components/Chart';
 import Select from './components/Select';
 import Map from './components/maps/Map';
+import Nav from './components/Nav';
+import DisplayPage from './components/DisplayPage';
 
 export default function App() {
   const [filter, setFilter] = React.useState<number>(100)
@@ -13,13 +15,14 @@ export default function App() {
   const [markers, setmarkers] = useState<IPropsForMarkers[]>()
   const [topFive, setTopFive] = useState<IPropsForMarkers[]>()
   const [sixth, setSixth] = useState<IPropsForMarkers[]>()
-
+  const [firstq, setfirstq] = useState<IPropsForMarkers[]>()
+  const [thirdq, setthirdq] = useState<IPropsForMarkers[]>()
   useEffect(() => {
     console.log("Markers: ", markers);
   }, [markers])
 
   socket.on('kind-attacks', async (data) => {
-    await setmarkers(data)
+    await setfirstq(data)
   })
 
   socket.on('all-most-hurts', (data) => {
@@ -74,30 +77,36 @@ export default function App() {
 
   socket.on('year-range-trend', (data) => {
     const list = []
-    for (const element1 of data as IPropsForMarkers[]) {
+    for (const element1 of data as IPropsForMarkers[][]) {
+      const data = {year:element1[0].year,numEvent:0}
       for (const element of element1 as IPropsForMarkers[]) {
-        const dataNaccessery = { year: element.year, month: element.month, numEvent: element.numEvent }
-        list.push(dataNaccessery)
+        data.numEvent += element.numEvent!
       }
-
+      list.push(data)
     }
     setmarkers(list)
   })
 
   socket.on('5year-trend', (data) => {
     const list = []
-    for (const element of data as IPropsForMarkers[]) {
-      const dataNaccessery = { year: element.year, month: element.month, numEvent: element.numEvent }
-      list.push(dataNaccessery)
+    for (const element1 of data as IPropsForMarkers[][]) {
+      const data = {year:element1[0].year,numEvent:0}
+      for (const element of element1 as IPropsForMarkers[]) {
+        data.numEvent += element.numEvent!
+      }
+      list.push(data)
     }
     setmarkers(list)
   })
 
   socket.on('10year-trend', (data) => {
     const list = []
-    for (const element of data as IPropsForMarkers[]) {
-      const dataNaccessery = { year: element.year, month: element.month, numEvent: element.numEvent }
-      list.push(dataNaccessery)
+    for (const element1 of data as IPropsForMarkers[][]) {
+      const data = {year:element1[0].year,numEvent:0}
+      for (const element of element1 as IPropsForMarkers[]) {
+        data.numEvent += element.numEvent!
+      }
+      list.push(data)
     }
     setmarkers(list)
   })
@@ -137,26 +146,7 @@ export default function App() {
   return (
     <>
       <Select markers={markers!} setmarkers={setmarkers} filter={filter} setFilter={setFilter} queries={queries} setqueries={setqueries} />
-
-
-      <Map
-        markers={markers!}
-        setmarkers={setmarkers}
-        filter={filter}
-        setFilter={setFilter}
-        queries={queries}
-        setqueries={setqueries}
-        topFive={topFive!}
-        setTopFive={setTopFive}
-        sixth={sixth!}
-         setSixth={setSixth}
-      />
-      {filter == 1 ?
-        <Graph bars={[{ key: "numCasualties", color: "#8894d8", name: "num of casualties" }]} data={markers!} xKey={'attackType'} /> : ""}
-      {filter == 3 ?
-        <Graph bars={[{ key: "numEvent", color: "#7344d8", name: "num of events" }]} data={markers!} xKey={'month'} /> : ""}
-      {filter == 3.1 ?
-        <Graph bars={[{ key: "numEvent", color: "#2344d8", name: "num of events" }]} data={markers!} xKey={'year'} /> : ""}
+      <DisplayPage firstq={firstq!} markers={markers!} setmarkers={setmarkers} filter={filter} setFilter={setFilter} queries={queries} setqueries={setqueries} topFive={topFive!} setTopFive={setTopFive} sixth={sixth!} setSixth={setSixth} />   
     </>
   )
 }
