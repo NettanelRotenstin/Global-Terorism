@@ -27,7 +27,7 @@ export const getQ1Service = async () => {
 
 export const getQ2Service = async () => {
     try {
-        const result: IQ2[] | any = await q2Model.find({}).populate('locationArr')
+        const result: IQ2[] | any = await q2Model.find({}).populate('locationArr').limit(1000)
         return result
     } catch (error) {
         console.error(error);
@@ -37,7 +37,7 @@ export const getQ2Service = async () => {
 
 export const getQ2ByCityService = async (city: string) => {
     try {
-        const result = await q2Model.find({ city }).populate("locationArr");
+        const result = await q2Model.find({ city }).populate("locationArr").limit(1000)
         return result;
     } catch (error) {
         console.error(error);
@@ -47,7 +47,8 @@ export const getQ2ByCityService = async (city: string) => {
 
 export const getQ2ByContryService = async (country: string) => {
     try {
-        const result = await q2Model.find({ country }).populate("locationArr");
+        console.log(33)
+        const result = await q2Model.find({ country }).populate("locationArr").limit(1000)
         return result;
     } catch (error) {
         console.error(error);
@@ -57,7 +58,7 @@ export const getQ2ByContryService = async (country: string) => {
 
 export const getQ2ByRegionService = async (region: string) => {
     try {
-        const result = await q2Model.find({ region }).populate("locationArr");
+        const result = await q2Model.find({ region }).populate("locationArr").limit(1000)
         return result;
     } catch (error) {
         console.error(error);
@@ -75,9 +76,10 @@ export const getQ3Service = async () => {
     }
 }
 
-export const getQ3ByYearService = async (year: string) => {
+export const getQ3ByYearService = async (year: number) => {
     try {
         const result = await q3Model.find({ year })
+      
         return result;
     } catch (error) {
         console.error(error);

@@ -9,11 +9,6 @@ import { getQ3Data } from "../Controllers/analistisController";
 import { getQ5ByYear } from "../Controllers/relationshipController";
 
 export const handelSocketConnection = async (client: Socket) => {
-
-    client.emit('all-locations', await allLocations())
-    //when client connect he will get: 1)kind of attacks and their damage
-    client.emit('kind-attacks', await getQ1Service())
-
     //when client create event all clients will get data back
     client.on("post-event", async (event: IPost) => {
         await postEvent(event)
@@ -32,8 +27,8 @@ export const handelSocketConnection = async (client: Socket) => {
     })
 
     client.on('kind-attacks', async () => {
-        client.emit('kind-attack', await getQ1Service())
-    })
+        client.emit('kind-attacks', await getQ1Service())
+     })
 
     client.on('all-most-hurts', async () => {
         client.emit('all-most-hurts', await getQ2Service())
@@ -55,8 +50,9 @@ export const handelSocketConnection = async (client: Socket) => {
         client.emit('all-trend', await getQ3Service())
     })
 
-    client.on('year-trend', async (year: string) => {
+    client.on('year-trend', async (year: number) => {
         client.emit('year-trend', await getQ3ByYearService(year))
+        console.log(await getQ3ByYearService(year))
     })
 
     client.on('year-range-trend', async (yearStart: string, yearEnd: string) => {

@@ -6,7 +6,7 @@ import { io } from 'socket.io-client'
 
 export const socket = io(`http://localhost:2222`)
 createRoot(document.getElementById('root')!).render(
- 
+  <StrictMode>
     <App />
-   ,
+  </StrictMode>,
 )
