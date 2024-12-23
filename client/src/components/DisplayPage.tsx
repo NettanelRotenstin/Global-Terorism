@@ -15,32 +15,35 @@ interface Props {
     setTopFive: (n: IPropsForMarkers[]) => void
     sixth: IPropsForMarkers[]
     setSixth: (n: IPropsForMarkers[]) => void
-    firstq:IPropsForMarkers[]
+    firstq: IPropsForMarkers[]
+    setthirdq: (n: IPropsForMarkers[]) => void
+    thirdq: IPropsForMarkers[]
 }
-export default function ({ markers, setmarkers, filter, setFilter, queries, setqueries, topFive, setTopFive, sixth, setSixth }: Props) {
+export default function ({ markers, setmarkers, filter, setFilter, queries, setqueries, topFive, setTopFive, sixth, setSixth, thirdq, firstq }: Props) {
     return (
         <>
-            <Map markers={markers!}
-                setmarkers={setmarkers}
-                filter={filter}
-                setFilter={setFilter}
-                queries={queries}
-                setqueries={setqueries}
-                topFive={topFive!}
-                setTopFive={setTopFive}
-                sixth={sixth!}
-                setSixth={setSixth}
-            />
+            {filter == 2 || filter == 2.1 || filter == 2.2 ?
+                <Map markers={markers!}
+                    setmarkers={setmarkers}
+                    filter={filter}
+                    setFilter={setFilter}
+                    queries={queries}
+                    setqueries={setqueries}
+                    topFive={topFive!}
+                    setTopFive={setTopFive}
+                    sixth={sixth!}
+                    setSixth={setSixth}
+                /> : ""}
             {filter == 1 ?
-                <Graph bars={[{ key: "numCasualties", color: "#8894d8", name: "num of casualties" }]} data={markers!} xKey={'attackType'} /> : ""}
+                <Graph bars={[{ key: "numCasualties", color: "#8894d8", name: "num of casualties" }]} data={firstq!} xKey={'attackType'} /> : ""}
             {filter == 3 ?
-                <Graph bars={[{ key: "numEvent", color: "#7344d8", name: "num of events" }]} data={markers!} xKey={'month'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#7344d8", name: "num of events" }]} data={thirdq} xKey={'month'} /> : ""}
             {filter == 3.1 ?
-                <Graph bars={[{ key: "numEvent", color: "#2344d8", name: "num of events" }]} data={markers!} xKey={'year'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#2344d8", name: "num of events" }]} data={thirdq} xKey={'year'} /> : ""}
             {filter == 3.2 ?
-                <Graph bars={[{ key: "numEvent", color: "#2344d8", name: "num of events" }]} data={markers!} xKey={'year'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#2344d8", name: "num of events" }]} data={thirdq} xKey={'year'} /> : ""}
             {filter == 3.3 ?
-                <Graph bars={[{ key: "numEvent", color: "#2344d8", name: "num of events" }]} data={markers!} xKey={'year'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#2344d8", name: "num of events" }]} data={thirdq} xKey={'year'} /> : ""}
         </>
     )
 }

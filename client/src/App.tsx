@@ -71,7 +71,7 @@ export default function App() {
       const dataNaccessery = { year: element.year, month: element.month, numEvent: element.numEvent }
       list.push(dataNaccessery)
     }
-    setmarkers(list)
+    setthirdq(list)
     console.log(markers)
   })
 
@@ -84,7 +84,7 @@ export default function App() {
       }
       list.push(data)
     }
-    setmarkers(list)
+    setthirdq(list)
   })
 
   socket.on('5year-trend', (data) => {
@@ -96,7 +96,7 @@ export default function App() {
       }
       list.push(data)
     }
-    setmarkers(list)
+    setthirdq(list)
   })
 
   socket.on('10year-trend', (data) => {
@@ -108,7 +108,7 @@ export default function App() {
       }
       list.push(data)
     }
-    setmarkers(list)
+    setthirdq(list)
   })
 
   socket.on('region-topFive', (data) => {
@@ -146,7 +146,7 @@ export default function App() {
   return (
     <>
       <Select markers={markers!} setmarkers={setmarkers} filter={filter} setFilter={setFilter} queries={queries} setqueries={setqueries} />
-      <DisplayPage firstq={firstq!} markers={markers!} setmarkers={setmarkers} filter={filter} setFilter={setFilter} queries={queries} setqueries={setqueries} topFive={topFive!} setTopFive={setTopFive} sixth={sixth!} setSixth={setSixth} />   
+      <DisplayPage setthirdq={setthirdq} thirdq={thirdq!} firstq={firstq!} markers={markers!} setmarkers={setmarkers} filter={filter} setFilter={setFilter} queries={queries} setqueries={setqueries} topFive={topFive!} setTopFive={setTopFive} sixth={sixth!} setSixth={setSixth} />   
     </>
   )
 }
