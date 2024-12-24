@@ -47,6 +47,10 @@ export default function App() {
     setmarkers(list)
   })
 
+  socket.on('search', (data) => {
+     
+  })
+
   socket.on('country-most-hurts', (data) => {
     const list = []
     for (const element of data as IPropsForMarkers[]) {

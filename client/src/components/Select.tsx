@@ -232,6 +232,7 @@ export default function Select({ markers, setmarkers, filter, setFilter, queries
   return (
     <>
     <div className='slct-all'>
+      <input placeholder='search event ' onChange={(e)=>socket.emit('search',(e.target.value))}></input>
       <select className='slct' onChange={(e) => setFilter(Number(e.target.value))}>
       <option value={2}>Choose one</option>
         <option value={queries[0].value}>{queries[0].sentence}</option>
