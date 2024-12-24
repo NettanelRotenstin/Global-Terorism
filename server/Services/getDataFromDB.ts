@@ -14,6 +14,7 @@ import { q6Model } from "../Models/q6Model";
 import { calcMost } from "../Utils/calculator";
 import { q5Model } from "../Models/q5Model";
 import { locationModel } from "../Models/locationModel";
+import { summaryModel } from "../Models/summaryModel";
 
 export const getQ1Service = async () => {
     try {
@@ -205,3 +206,13 @@ export const getQ5ByYearService = async (year: number) => {
         throw error
     }
   }
+
+  export const searchText = async (search: string) => {
+    search = search.trim();
+    const events = await summaryModel.find({
+        summary: { $regex: search, $options: 'i' }
+    })
+    .limit(1000);
+    console.log(events)
+    return events;
+}

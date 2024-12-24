@@ -11,7 +11,7 @@ const Graph: React.FC<Props> = ({ data, xKey, bars }: Props) => {
     return (
         <ResponsiveContainer width="80%" height={500} style={{top:1000}}>
             <BarChart data={data}>
-                <CartesianGrid strokeDasharray="10 10" />
+                <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey={xKey} />
                 <YAxis />
                 <Tooltip />

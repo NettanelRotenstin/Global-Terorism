@@ -1,0 +1,21 @@
+ .slct-all{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5%;
+    flex-direction: column;
+    background-color: #e3f2bf;
+    margin: 2%;
+ }
+.slct {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:50%;
+    height: 20%;
+    padding: 5%;
+}
+
+input{
+    margin: 3%;
+}

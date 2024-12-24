@@ -39,21 +39,21 @@ export default function ({ markers, setmarkers, filter, setFilter, queries, setq
             {filter == 1 ?
                 <Graph bars={[{ key: "numCasualties", color: "#8894d8", name: "num of casualties" }]} data={firstq!} xKey={'attackType'} /> : ""}
             {filter == 3 ?
-                <Graph bars={[{ key: "numEvent", color: "#7344d8", name: "num of events" }]} data={thirdq} xKey={'month'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#f28919", name: "num of events" }]} data={thirdq} xKey={'month'} /> : ""}
             {filter == 3.1 ?
-                <Graph bars={[{ key: "numEvent", color: "#2344d8", name: "num of events" }]} data={thirdq} xKey={'year'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#f52630", name: "num of events" }]} data={thirdq} xKey={'year'} /> : ""}
             {filter == 3.2 ?
-                <Graph bars={[{ key: "numEvent", color: "#2344d8", name: "num of events" }]} data={thirdq} xKey={'year'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#26d3f5", name: "num of events" }]} data={thirdq} xKey={'year'} /> : ""}
             {filter == 3.3 ?
-                <Graph bars={[{ key: "numEvent", color: "#2344d8", name: "num of events" }]} data={thirdq} xKey={'year'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#eaf604", name: "num of events" }]} data={thirdq} xKey={'year'} /> : ""}
             {filter == 4 ?
-                <Graph bars={[{ key: "numEvent", color: "#1322d8", name: "num of events" }]} data={fourth} xKey={'organName'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#21f256", name: "num of events" }]} data={fourth} xKey={'organName'} /> : ""}
             {filter == 4.1 ?
-                <Graph bars={[{ key: "numEvent", color: "#1322d8", name: "num of events" }]} data={fourth} xKey={'organName'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#5e51c0", name: "num of events" }]} data={fourth} xKey={'organName'} /> : ""}
             {filter == 5 ?
                 <Graph bars={[{ key: "numEvent", color: "#1322d8", name: "num of events by year" }]} data={fifth!} xKey={'organizationName'} /> : ""}
             {filter == 5.1 ?
-                <Graph bars={[{ key: "numEvent", color: "#4442d8", name: "num of events by organization name" }]} data={fifth!} xKey={'year'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#f245e3", name: "num of events by organization name" }]} data={fifth!} xKey={'year'} /> : ""}
         </>
     )
 }

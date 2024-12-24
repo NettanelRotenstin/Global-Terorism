@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { socket } from '../main';
 import IPropsForMarkers from '../Types/interfaces/IPropsForMarker';
 import IQuery from '../Types/interfaces/IQuery';
+import '../components/select.css'
 interface Props {
   markers: IPropsForMarkers[]
   setmarkers: any
@@ -43,20 +44,71 @@ export default function Select({ markers, setmarkers, filter, setFilter, queries
       socket.emit('all-most-hurts',)
 
     if (filter == 2.1)
+    {
       setareaBool(true)
-
+      setcountryBool(false)
+      setcityBool(false)
+      setyearBool(false)
+      setyear2Bool(false)
+      setyearstartBool(false)
+      setyearendBool(false)
+      setregionBool(false)
+      setorganameBool(false)
+      setorganame2Bool(false)
+    }
     if (filter == 2.2)
+    {
+      setareaBool(false)
       setcountryBool(true)
+      setcityBool(false)
+      setyearBool(false)
+      setyear2Bool(false)
+      setyearstartBool(false)
+      setyearendBool(false)
+      setregionBool(false)
+      setorganameBool(false)
+      setorganame2Bool(false)
+    }
     if(filter == 2.3){
+      setareaBool(false)
+      setcountryBool(false)
       setcityBool(true)
+      setyearBool(false)
+      setyear2Bool(false)
+      setyearstartBool(false)
+      setyearendBool(false)
+      setregionBool(false)
+      setorganameBool(false)
+      setorganame2Bool(false)
     }
     if (filter == 3)
-      setyearBool(true)
+      {
+        setareaBool(false)
+        setcountryBool(false)
+        setcityBool(false)
+        setyearBool(true)
+        setyear2Bool(false)
+        setyearstartBool(false)
+        setyearendBool(false)
+        setregionBool(false)
+        setorganameBool(false)
+        setorganame2Bool(false)
+      }
 
     if (filter == 3.1)
     {
-      setyearstartBool(true)
-      setyearendBool(true)
+      {
+        setareaBool(false)
+        setcountryBool(false)
+        setcityBool(false)
+        setyearBool(false)
+        setyear2Bool(false)
+        setyearstartBool(true)
+        setyearendBool(true)
+        setregionBool(false)
+        setorganameBool(false)
+        setorganame2Bool(false)
+      }
     }
     if (filter == 3.2)
       console.log(999)
@@ -66,19 +118,62 @@ export default function Select({ markers, setmarkers, filter, setFilter, queries
       socket.emit('10year-trend',)
 
     if (filter == 4)
-    setregionBool(true)
+      {
+        setareaBool(false)
+        setcountryBool(false)
+        setcityBool(false)
+        setyearBool(false)
+        setyear2Bool(false)
+        setyearstartBool(false)
+        setyearendBool(false)
+        setregionBool(true)
+        setorganameBool(false)
+        setorganame2Bool(false)
+      }
 
     if (filter == 4.1)
       socket.emit('all-region-topFive',)
 
     if (filter == 5)
-      setyear2Bool(true)
+      {
+        setareaBool(false)
+        setcountryBool(false)
+        setcityBool(false)
+        setyearBool(false)
+        setyear2Bool(true)
+        setyearstartBool(false)
+        setyearendBool(false)
+        setregionBool(false)
+        setorganameBool(false)
+        setorganame2Bool(false)
+      }
 
     if (filter == 5.1)
-      setorganameBool(true)
-
+      {
+        setareaBool(false)
+        setcountryBool(false)
+        setcityBool(false)
+        setyearBool(false)
+        setyear2Bool(false)
+        setyearstartBool(false)
+        setyearendBool(false)
+        setregionBool(false)
+        setorganameBool(true)
+        setorganame2Bool(false)
+      }
     if (filter == 6)
-      setorganame2Bool(true)
+      {
+        setareaBool(false)
+        setcountryBool(false)
+        setcityBool(false)
+        setyearBool(false)
+        setyear2Bool(false)
+        setyearstartBool(false)
+        setyearendBool(false)
+        setregionBool(false)
+        setorganameBool(false)
+        setorganame2Bool(true)
+      }
 
   }, [filter])
 
@@ -136,7 +231,8 @@ export default function Select({ markers, setmarkers, filter, setFilter, queries
 
   return (
     <>
-      <select onChange={(e) => setFilter(Number(e.target.value))}>
+    <div className='slct-all'>
+      <select className='slct' onChange={(e) => setFilter(Number(e.target.value))}>
       <option value={2}>Choose one</option>
         <option value={queries[0].value}>{queries[0].sentence}</option>
         <option value={queries[1].value}>{queries[1].sentence}</option>
@@ -172,6 +268,8 @@ export default function Select({ markers, setmarkers, filter, setFilter, queries
       {organameBool ? <button onClick={sendEmitOrganame}>send query</button> : ""}
       {organame2Bool ? <input placeholder='enter organization name:' onChange={(e) => setorganame2(e.target.value)}></input> : ""}
       {organame2Bool ? <button onClick={sendEmitOrganame2}>send query</button> : ""}
+      </div>
     </>
+     
   );
 }

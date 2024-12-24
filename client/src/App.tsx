@@ -8,6 +8,7 @@ import Select from './components/Select';
 import Map from './components/maps/Map';
 import Nav from './components/Nav';
 import DisplayPage from './components/DisplayPage';
+import './App.css'
 
 export default function App() {
   const [filter, setFilter] = React.useState<number>(100)

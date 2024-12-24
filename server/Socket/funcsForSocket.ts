@@ -3,7 +3,7 @@ import IPost from "../Types/Interfaces/IPost";
 import { postEvent } from "../Services/postService";
 import { updateEvent } from "../Services/updateService";
 import { io } from "..";
-import { allLocations, getQ1Service, getQ2ByCityService, getQ2ByContryService, getQ2ByRegionService, getQ2Service, getQ3By10YearsService, getQ3By5YearsService, getQ3ByYearRangeService, getQ3ByYearService, getQ3Service, getQ4ServiceAll, getQ4ServiceArea, getQ5ByOrgService, getQ5ByYearService, getQ6ServiceArea } from "../Services/getDataFromDB";
+import { allLocations, getQ1Service, getQ2ByCityService, getQ2ByContryService, getQ2ByRegionService, getQ2Service, getQ3By10YearsService, getQ3By5YearsService, getQ3ByYearRangeService, getQ3ByYearService, getQ3Service, getQ4ServiceAll, getQ4ServiceArea, getQ5ByOrgService, getQ5ByYearService, getQ6ServiceArea, searchText } from "../Services/getDataFromDB";
 import { deleteEvent } from "../Services/deleteService";
 import { getQ3Data } from "../Controllers/analistisController";
 import { getQ5ByYear } from "../Controllers/relationshipController";
@@ -85,5 +85,9 @@ export const handelSocketConnection = async (client: Socket) => {
 
     client.on('org-most-events-area', async (org: string) => {
         client.emit('org-most-events-area', await getQ6ServiceArea(org))
+    })
+
+    client.on('search', async (query: string) => {
+        client.emit('search', await searchText(query))
     })
 }
