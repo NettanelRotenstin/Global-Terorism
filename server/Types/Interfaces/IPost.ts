@@ -2,7 +2,7 @@ export default interface IPost{
     attackType?:string
     nkill?:number
     nwound?:number
-    region:string
+    region?:string
     country?:string
     city?:string
     lat?:number

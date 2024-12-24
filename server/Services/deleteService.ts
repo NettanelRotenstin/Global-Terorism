@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import { locationModel } from "../Models/locationModel"
 import { q1Model } from "../Models/q1Model"
 import { q2Model } from "../Models/q2Model"
@@ -5,9 +6,13 @@ import { q3Model } from "../Models/q3Model"
 import { q4Model } from "../Models/q4Model"
 import { q5Model } from "../Models/q5Model"
 import { q6Model } from "../Models/q6Model"
+import { summaryModel } from "../Models/summaryModel"
 import ILocation from "../Types/Interfaces/ILocation"
 import IPost from "../Types/Interfaces/IPost"
+import IPostAll from "../Types/Interfaces/IPostAll"
 import { calcCasualties } from "../Utils/calculator"
+import { orgaAndLocateModel } from "../Models/orgaAndLocateModel"
+import { calcTopFive } from "./postService"
 
 export const deleteEvent = async (event: IPost) => {
     try {
@@ -19,10 +24,27 @@ export const deleteEvent = async (event: IPost) => {
         await deleteQ3(event)
         await deleteQ5(event)
         await deleteQ6(event)
+        await deleteSummery(event)
+        await deleteOrga(event)
     } catch (error) {
         console.log(error)
     }
 }
+
+const deleteSummery = async (event: IPostAll) => {
+    try {
+        const exist = await summaryModel.find({ eventid: event.eventid });
+        if (!exist) {
+            throw new Error("[delte] this event is not found");
+        }
+        const delEvent = await summaryModel.findOneAndDelete({
+            eventid: event.eventid,
+        });
+        console.log(delEvent, "delEvent");
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 
 const deleteQ1 = async (event: IPost) => {
@@ -101,6 +123,27 @@ const deleteQ5 = async (event: IPost) => {
         console.log(error)
     }
 }
+
+const deleteOrga = async (event: IPost) => {
+    try {
+        const { region, organName } = event;
+        let exist: mongoose.AnyObject | null = await orgaAndLocateModel.findOne({
+            region,
+            organName,
+        });
+        if (!exist) {
+            throw new Error("no one to delete!");
+        } else {
+            if (exist.numEvent - 1 >= 0) {
+                exist.numEvent = exist.numEvent - 1;
+            }
+            await exist.save();
+            await calcTopFive(event);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
 const deleteQ6 = async (event: IPost) => {
     try {
         const { attackType, nkill, nwound, region, country, city, lat, lon, organName, year, month } = event

@@ -1,79 +1,67 @@
 import { model, Schema } from "mongoose"
 import ISummary from "../Types/Interfaces/ISummary"
+import IPostAll from "../Types/Interfaces/IPostAll"
 
-export const summarySchema = new Schema<ISummary>({
-    eventid:{
-        type:Number,
-        default:0
-    },
-    iyear:{
-        type:Number,
-        default:0
-    },
-    imonth:{
-        type:Number,
-        default:0
-    },
-    iday:{
-        type:Number,
-        default:0
-    },
-    country_txt:{
-        type:String,
-        default:""
-    },
-    region_txt:{
-        type:String,
-        default:""
-    },
-    city:{
-        type:String,
-        default:""
-    },
-    latitude:{
-        type:Number,
-        default:0
-    },
-    longitude:{
-        type:Number,
-        default:0
-    },
-    attacktype1_txt:{
-        type:String,
-        default:""
-    },
-    targtype1_txt:{
-        type:String,
-        default:""
-    },
-    target1:{
-        type:String,
-        default:""
-    },
-    gname:{
-        type:String,
-        default:""
-    },
-    weaptype1_txt:{
-        type:String,
-        default:""
-    },
-    nkill:{
-        type:Number,
-        default:0
-    },
-    nwound:{
-        type:Number,
-        default:0
-    },
-    nperps:{
-        type:Number,
-        default:0
-    },
-    summary:{
-        type:String,
-        default:0
-    }
+export const summarySchema = new Schema<IPostAll>({
+    eventid: {
+        type: Number,
+      },
+      year: {
+        type: Number,
+        default: 0,
+      },
+      month: {
+        type: Number,
+        default: 0,
+      },
+      iday: {
+        type: Number,
+        default: 0,
+      },
+      country: {
+        type: String,
+      },
+      region: {
+        type: String,
+      },
+      city: {
+        type: String,
+      },
+      lat: {
+        type: Number,
+        default: 0,
+      },
+      lon: {
+        type: Number,
+        default: 0,
+      },
+      attackType: {
+        type: String,
+      },
+      targtype1_txt: {
+        type: String,
+      },
+      target1: {
+        type: String
+      },
+      organName: {
+        type: String
+      },
+      weaptype1_txt: {
+        type: String
+      },
+      nkill: {
+        type: Number
+      },
+      nwound: {
+        type: Number
+      },
+      nperps: {
+        type: Number,
+      },
+      summary: {
+        type: String
+      }
 })
    
 

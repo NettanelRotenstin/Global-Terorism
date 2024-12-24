@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { locationModel } from "../Models/locationModel";
 import { orgaAndLocateModel } from "../Models/orgaAndLocateModel";
 import { q1Model } from "../Models/q1Model";
@@ -6,8 +7,10 @@ import { q3Model } from "../Models/q3Model";
 import { q4Model } from "../Models/q4Model";
 import { q5Model } from "../Models/q5Model";
 import { q6Model } from "../Models/q6Model";
+import { summaryModel } from "../Models/summaryModel";
 import ILocation from "../Types/Interfaces/ILocation";
 import IPost from "../Types/Interfaces/IPost";
+import IPostAll from "../Types/Interfaces/IPostAll";
 import { calcCasualties } from "../Utils/calculator";
 
 export const postEvent = async (event: IPost) => {
@@ -18,11 +21,12 @@ export const postEvent = async (event: IPost) => {
         await postQ1(event)
         await postQ2(event,location)
         await postQ3(event)
+        await postOrga(event)
         await postQ4(event)
         await postQ5(event)
         await postQ6(event)  
-        await postOrga(event)
         await calcTopFive(event)
+        await postSummery(event)
     } catch (error) {
         console.log(error)
     }
@@ -86,17 +90,21 @@ const postQ3 = async (event: IPost) => {
 }
 const postQ4 = async (event: IPost) => {
     try {
-        const { attackType, nkill, nwound, region, country, city, lat, lon, organName, year, month } = event
-
-        const extQ4 = await q4Model.findOne({ region })
-        if (!extQ4) {
-            const newQ4 = new q4Model({ region })
-            await newQ4.save()
+        const { region } = event;
+        const exist = await q4Model.findOne({ region });
+        if (!exist) {
+          const myEvent = await orgaAndLocateModel.findOne({ region });
+          const newForth = new q4Model({
+            region,
+            organizeTopFive: [myEvent!._id],
+          });
+          await newForth.save();
+        } else {
+          await calcTopFive(event);
         }
-        return
-    } catch (error) {
-        console.log(error)
-    }
+      } catch (err) {
+        console.log(err);
+      }
 }
 const postQ5 = async (event: IPost) => {
     try {
@@ -137,22 +145,80 @@ const postQ6 = async (event: IPost) => {
 
 const postOrga = async (event: IPost) => {
     try {
-        const { organName,region } = event
-
-        const extOrg = await orgaAndLocateModel.findOne({ organName, region })
-        if (!extOrg) {
-            const newOrg = new orgaAndLocateModel({ organName, region, numEvent:1 })
-            await newOrg.save()
+        const { region, organName } = event;
+        let existing: mongoose.AnyObject | null = await orgaAndLocateModel.findOne({
+          region,
+          organName,
+        });
+        if (!existing) {
+          const newOrga = new orgaAndLocateModel({
+            region,
+            organName,
+            numEvent: 1,
+          });
+          await newOrga.save();
+        } else {
+          existing.numEvent += 1;
+          await existing.save();
         }
-        else {
-            extOrg.numEvent = extOrg.numEvent + 1
-            await extOrg.save()
-        }
-        return
-    } catch (error) {
-        console.log(error)
-    }
+        console.log("oarg");
+      } catch (error) {
+        console.log(error);
+      }
 }
+
+const postSummery = async (event:IPostAll ) => {
+    try {
+      const {
+        attackType,
+        city,
+        country,
+        eventid,
+        iday,
+        lat,
+        lon,
+        month,
+        nkill,
+        nperps,
+        nwound,
+        organName,
+        region,
+        summary,
+        target1,
+        targtype1_txt,
+        weaptype1_txt,
+        year,
+      } = event;
+      const exist = await summaryModel.find({ eventid });
+      if (!exist) {
+        const newAttack = new summaryModel({
+          attackType,
+          city,
+          country,
+          eventid,
+          iday,
+          lat,
+          lon,
+          month,
+          nkill,
+          nperps,
+          nwound,
+          organName,
+          region,
+          summary,
+          target1,
+          targtype1_txt,
+          weaptype1_txt,
+          year,
+        });
+        await newAttack.save();
+      } else {
+        throw new Error("attack with the event id already exist");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
  
 export const calcTopFive = async (event:IPost)=>{
     try {

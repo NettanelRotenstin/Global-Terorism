@@ -211,8 +211,8 @@ export const getQ5ByYearService = async (year: number) => {
     search = search.trim();
     const events = await summaryModel.find({
         summary: { $regex: search, $options: 'i' }
-    })
-    .limit(1000);
+    }).skip(4)
+    .limit(100)
     console.log(events)
     return events;
 }
