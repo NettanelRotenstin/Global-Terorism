@@ -17,8 +17,9 @@ export default function App() {
   const [sixth, setSixth] = useState<IPropsForMarkers[]>()
   const [firstq, setfirstq] = useState<IPropsForMarkers[]>()
   const [thirdq, setthirdq] = useState<IPropsForMarkers[]>()
+  const [fourth, setfourth] = useState<IPropsForMarkers[]>()
+  const [fifth, setfifth] = useState<IPropsForMarkers[]>()
   useEffect(() => {
-    console.log("Markers: ", markers);
   }, [markers])
 
   socket.on('kind-attacks', async (data) => {
@@ -78,7 +79,7 @@ export default function App() {
   socket.on('year-range-trend', (data) => {
     const list = []
     for (const element1 of data as IPropsForMarkers[][]) {
-      const data = {year:element1[0].year,numEvent:0}
+      const data = { year: element1[0].year, numEvent: 0 }
       for (const element of element1 as IPropsForMarkers[]) {
         data.numEvent += element.numEvent!
       }
@@ -90,7 +91,7 @@ export default function App() {
   socket.on('5year-trend', (data) => {
     const list = []
     for (const element1 of data as IPropsForMarkers[][]) {
-      const data = {year:element1[0].year,numEvent:0}
+      const data = { year: element1[0].year, numEvent: 0 }
       for (const element of element1 as IPropsForMarkers[]) {
         data.numEvent += element.numEvent!
       }
@@ -102,7 +103,7 @@ export default function App() {
   socket.on('10year-trend', (data) => {
     const list = []
     for (const element1 of data as IPropsForMarkers[][]) {
-      const data = {year:element1[0].year,numEvent:0}
+      const data = { year: element1[0].year, numEvent: 0 }
       for (const element of element1 as IPropsForMarkers[]) {
         data.numEvent += element.numEvent!
       }
@@ -116,27 +117,46 @@ export default function App() {
     setmarkers(data)
   })
 
+  socket.on('region-topFive', (data) => {
+    setfourth(data[0].organizeTopFive)
+    console.log(fourth)
+  })
+
   socket.on('all-region-topFive', (data) => {
     setTopFive(data)
     setmarkers(data)
   })
 
+  socket.on('all-region-topFive', (data) => {
+    console.log(data)
+    const list = []
+     for (const element1 of data as any[]) {
+      for (const element of element1.organizeTopFive) {
+        list.push(element)
+      }
+      }
+     setfourth(list)
+   
+  })
+
   socket.on('events-year', (data) => {
+    console.log(data)
     const list = []
     for (const element of data as IPropsForMarkers[]) {
       const dataNaccessery = { organizationName: element.organizationName, numEvent: element.numEvent, year: element.year }
       list.push(dataNaccessery)
     }
-    setmarkers(list)
+    setfifth(list)
   })
 
   socket.on('org-event', (data) => {
+    console.log(data)
     const list = []
     for (const element of data as IPropsForMarkers[]) {
       const dataNaccessery = { organizationName: element.organizationName, numEvent: element.numEvent, year: element.year }
       list.push(dataNaccessery)
     }
-    setmarkers(list)
+    setfifth(list)
   })
 
   socket.on('org-most-events-area', (data) => {
@@ -146,7 +166,7 @@ export default function App() {
   return (
     <>
       <Select markers={markers!} setmarkers={setmarkers} filter={filter} setFilter={setFilter} queries={queries} setqueries={setqueries} />
-      <DisplayPage setthirdq={setthirdq} thirdq={thirdq!} firstq={firstq!} markers={markers!} setmarkers={setmarkers} filter={filter} setFilter={setFilter} queries={queries} setqueries={setqueries} topFive={topFive!} setTopFive={setTopFive} sixth={sixth!} setSixth={setSixth} />   
+      <DisplayPage fifth={fifth!} setthirdq={setthirdq} thirdq={thirdq!} firstq={firstq!} markers={markers!} setmarkers={setmarkers} filter={filter} setFilter={setFilter} queries={queries} setqueries={setqueries} topFive={topFive!} setTopFive={setTopFive} sixth={sixth!} setSixth={setSixth} fourth={fourth!} />
     </>
   )
 }

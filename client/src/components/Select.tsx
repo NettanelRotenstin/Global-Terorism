@@ -54,9 +54,10 @@ export default function Select({ markers, setmarkers, filter, setFilter, queries
       setyearBool(true)
 
     if (filter == 3.1)
+    {
       setyearstartBool(true)
-    setyearendBool(true)
-
+      setyearendBool(true)
+    }
     if (filter == 3.2)
       console.log(999)
       socket.emit('5year-trend',)

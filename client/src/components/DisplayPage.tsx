@@ -18,11 +18,13 @@ interface Props {
     firstq: IPropsForMarkers[]
     setthirdq: (n: IPropsForMarkers[]) => void
     thirdq: IPropsForMarkers[]
+    fourth: IPropsForMarkers[]
+    fifth: IPropsForMarkers[]
 }
-export default function ({ markers, setmarkers, filter, setFilter, queries, setqueries, topFive, setTopFive, sixth, setSixth, thirdq, firstq }: Props) {
+export default function ({ markers, setmarkers, filter, setFilter, queries, setqueries, topFive, setTopFive, sixth, setSixth, thirdq, firstq, fourth, fifth }: Props) {
     return (
         <>
-            {filter == 2 || filter == 2.1 || filter == 2.2 ?
+            {filter == 2 || filter == 2.1 || filter == 2.2 || filter == 4 || filter == 4.1 || filter == 2.3 || filter == 6 ?
                 <Map markers={markers!}
                     setmarkers={setmarkers}
                     filter={filter}
@@ -44,6 +46,14 @@ export default function ({ markers, setmarkers, filter, setFilter, queries, setq
                 <Graph bars={[{ key: "numEvent", color: "#2344d8", name: "num of events" }]} data={thirdq} xKey={'year'} /> : ""}
             {filter == 3.3 ?
                 <Graph bars={[{ key: "numEvent", color: "#2344d8", name: "num of events" }]} data={thirdq} xKey={'year'} /> : ""}
+            {filter == 4 ?
+                <Graph bars={[{ key: "numEvent", color: "#1322d8", name: "num of events" }]} data={fourth} xKey={'organName'} /> : ""}
+            {filter == 4.1 ?
+                <Graph bars={[{ key: "numEvent", color: "#1322d8", name: "num of events" }]} data={fourth} xKey={'organName'} /> : ""}
+            {filter == 5 ?
+                <Graph bars={[{ key: "numEvent", color: "#1322d8", name: "num of events by year" }]} data={fifth!} xKey={'organizationName'} /> : ""}
+            {filter == 5.1 ?
+                <Graph bars={[{ key: "numEvent", color: "#4442d8", name: "num of events by organization name" }]} data={fifth!} xKey={'year'} /> : ""}
         </>
     )
 }

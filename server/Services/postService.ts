@@ -72,7 +72,7 @@ const postQ3 = async (event: IPost) => {
 
         const extQ3 = await q3Model.findOne({ year, month })
         if (!extQ3) {
-            const newQ3 = new q3Model({ year, month })
+            const newQ3 = new q3Model({ year, month,numEvent:1 })
             await newQ3.save()
         }
         else {
