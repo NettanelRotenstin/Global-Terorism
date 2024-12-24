@@ -349,49 +349,11 @@ export const sidAttack = async () => {
     try {
       const data: IPost[] | any = await getFileData();
       for (const element of data as any[]) {
-        const {
-          eventid,
-          city,
-          attacktype1_txt,
-          country_txt,
-          iday,
-          latitude,
-          longitude,
-          imonth,
-          nkill,
-          nperps,
-          nwound,
-          gname,
-          region_txt,
-          summary,
-          target1,
-          targtype1_txt,
-          weaptype1_txt,
-          iyear,
-        } = element;
-        const newA = new summaryModel({
-          eventid,
-          attackType : attacktype1_txt,
-          city,
-          country : country_txt,
-          iday,
-          lat:latitude,
-          lon:longitude,
-          month:imonth,
-          nkill,
-          nperps,
-          nwound,
-          organName : gname,
-          region:region_txt,
-          summary,
-          target1,
-          targtype1_txt,
-          weaptype1_txt,
-          year:iyear,
+        const {eventid, city,attacktype1_txt,country_txt,iday,latitude,longitude,imonth,nkill,nperps,nwound,gname,region_txt,summary,target1,targtype1_txt,weaptype1_txt,iyear,} = element;
+        const newA = new summaryModel({eventid,attackType : attacktype1_txt,city,country : country_txt,iday,lat:latitude,lon:longitude,month:imonth,nkill,nperps,nwound,organName : gname,region:region_txt,summary,target1,targtype1_txt,weaptype1_txt,year:iyear,
         });
         await newA.save();
       }
-      console.log("doneee");
     } catch (err) {
       console.log(err);
     }

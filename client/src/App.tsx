@@ -83,7 +83,6 @@ export default function App() {
       list.push(dataNaccessery)
     }
     setthirdq(list)
-    console.log(markers)
   })
 
   socket.on('year-range-trend', (data) => {
@@ -95,7 +94,6 @@ export default function App() {
       }
       list.push(data)
     }
-    console.log(data)
     setthirdRange(list)
   })
 
@@ -130,7 +128,6 @@ export default function App() {
 
   socket.on('region-topFive', (data) => {
     setfourth(data[0].organizeTopFive)
-    console.log(fourth)
   })
 
   socket.on('all-region-topFive', (data) => {
@@ -139,7 +136,6 @@ export default function App() {
   })
 
   socket.on('all-region-topFive', (data) => {
-    console.log(data)
     const list = []
      for (const element1 of data as any[]) {
       for (const element of element1.organizeTopFive) {
@@ -151,7 +147,6 @@ export default function App() {
   })
 
   socket.on('events-year', (data) => {
-    console.log(data)
     const list = []
     for (const element of data as IPropsForMarkers[]) {
       const dataNaccessery = { organizationName: element.organizationName, numEvent: element.numEvent, year: element.year }
@@ -161,7 +156,6 @@ export default function App() {
   })
 
   socket.on('org-event', (data) => {
-    console.log(data)
     const list = []
     for (const element of data as IPropsForMarkers[]) {
       const dataNaccessery = { organizationName: element.organizationName, numEvent: element.numEvent, year: element.year }

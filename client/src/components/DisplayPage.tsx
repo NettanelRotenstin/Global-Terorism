@@ -26,10 +26,7 @@ interface Props {
     thirdRange:IPropsForMarkers[]
 }
 export default function ({ markers, setmarkers, filter, setFilter, queries, setqueries, topFive, setTopFive, sixth, setSixth, thirdq,thirdRange, firstq, fourth, fifth ,searchBool,setsearchBool,searchData}: Props) {
-    useEffect(()=>{
-        console.log(searchBool)
-        console.log(searchData)
-    })
+   
     return (
         <>
         {searchBool &&
@@ -66,11 +63,11 @@ export default function ({ markers, setmarkers, filter, setFilter, queries, setq
                     searchData={searchData}
                 /> : ""}
             {filter == 1 && firstq != undefined?
-                <Graph bars={[{ key: "numCasualties", color: "#8894d8", name: "num of casualties" }]} data={firstq!} xKey={'attackType'} /> : ""}
+                <Graph bars={[{ key: "numCasualties", color: "#8894d8", name: "num of casualties" }]} data={firstq!} xKey={'attackType'} />   : ""}
             {filter == 3 && thirdq != undefined?
-                <Graph bars={[{ key: "numEvent", color: "#f28919", name: "num of events" }]} data={thirdq} xKey={'month'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#f28919", name: "num of events" }]} data={thirdq} xKey={'month'} />  : ""}
             {filter == 3.1 && thirdRange != undefined?
-                <Graph bars={[{ key: "numEvent", color: "#f52630", name: "num of events" }]} data={thirdRange} xKey={'year'} /> : ""}
+                <Graph bars={[{ key: "numEvent", color: "#f52630", name: "num of events" }]} data={thirdRange} xKey={'year'} />   : ""}
             {filter == 3.2 && thirdq != undefined?
                 <Graph bars={[{ key: "numEvent", color: "#26d3f5", name: "num of events" }]} data={thirdq} xKey={'year'} /> : ""}
             {filter == 3.3 && thirdq != undefined?

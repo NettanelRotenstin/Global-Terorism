@@ -112,7 +112,6 @@ export default function Select({ markers, setmarkers, filter, setFilter, queries
       }
     }
     if (filter == 3.2)
-      console.log(999)
       socket.emit('5year-trend',)
 
     if (filter == 3.3)
@@ -179,7 +178,6 @@ export default function Select({ markers, setmarkers, filter, setFilter, queries
   }, [filter])
 
   const sendEmitArea = () => {
-    console.log(99)
     socket.emit('region-most-hurts', area)
     setareaBool(false)
   }
@@ -200,7 +198,6 @@ export default function Select({ markers, setmarkers, filter, setFilter, queries
   }
 
   const sendEmitRangeYear = () => {
-    console.log(yearstart,12,yearend)
     socket.emit('year-range-trend', yearstart, yearend)
     setyearstartBool(false)
     setyearendBool(false)

@@ -22,11 +22,7 @@ interface Props {
 }
 export default function Map({ filter, setFilter, queries, setqueries, markers, setmarkers, setTopFive, topFive, setSixth, sixth, searchBool, setsearchBool, searchData }: Props) {
     function SetMapCenter({ center }: { center: [number, number] }) {
-        const map = useMap();
-
-        useEffect(() => {
-            console.log(searchBool)
-        }, [])
+        const map = useMap()
 
         useEffect(() => {
             if (center) {

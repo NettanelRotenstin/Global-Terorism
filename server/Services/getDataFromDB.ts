@@ -80,7 +80,7 @@ export const getQ3Service = async () => {
 export const getQ3ByYearService = async (year: number) => {
     try {
         const result = await q3Model.find({ year })
-      
+
         return result;
     } catch (error) {
         console.error(error);
@@ -122,21 +122,21 @@ export const getQ3By5YearsService = async () => {
 
 export const getQ3By10YearsService = async () => {
     try {
-      let start = 2007;
-      const end = 2017;
-      const list = [];
-      while (end >= start) {
-        const result = await q3Model.find({ year: start });
-        list.push(result);
-        start += 1;
-      }
-      console.log(list);
-      return list;
+        let start = 2007;
+        const end = 2017;
+        const list = [];
+        while (end >= start) {
+            const result = await q3Model.find({ year: start });
+            list.push(result);
+            start += 1;
+        }
+        console.log(list);
+        return list;
     } catch (error) {
-      console.error(error);
-      throw error;
+        console.error(error);
+        throw error;
     }
-  };
+};
 
 export const getQ4ServiceAll = async () => {
     try {
@@ -161,22 +161,22 @@ export const getQ4ServiceArea = async (reg: string) => {
 
 export const getQ5Service = async () => {
     try {
-      return await q5Model.find();
+        return await q5Model.find();
     } catch (err) {
-      console.log(err);
-      throw err;
+        console.log(err);
+        throw err;
     }
-  };
+};
 
 export const getQ5ByOrgService = async (org: string) => {
     try {
-      return await q5Model.find({ organizationName: org });
+        return await q5Model.find({ organizationName: org });
     } catch (err) {
-      console.log(err)
-      throw err
+        console.log(err)
+        throw err
     }
-  }
-  
+}
+
 
 export const getQ6ServiceArea = async (org: string) => {
     try {
@@ -192,27 +192,24 @@ export const getQ6ServiceArea = async (org: string) => {
 
 export const getQ5ByYearService = async (year: number) => {
     try {
-      return await q5Model.find({ year }).sort({numEvent:-1});
+        return await q5Model.find({ year }).sort({ numEvent: -1 });
     } catch (err) {
-      console.log(err);
-      throw err;
+        console.log(err);
+        throw err;
     }
-  };
- 
-  export const allLocations = async()=>{
+};
+
+export const allLocations = async () => {
     try {
         return await locationModel.find({})
     } catch (error) {
         throw error
     }
-  }
+}
 
-  export const searchText = async (search: string) => {
+export const searchText = async (search: string) => {
     search = search.trim();
     const events = await summaryModel.find({
-        summary: { $regex: search, $options: 'i' }
-    }).skip(4)
-    .limit(100)
-    console.log(events)
+        summary: { $regex: search, $options: 'i' }}).skip(4).limit(100)
     return events;
 }
