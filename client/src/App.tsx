@@ -22,6 +22,7 @@ export default function App() {
   const [fifth, setfifth] = useState<IPropsForMarkers[]>()
   const [searchBool, setsearchBool] = useState<boolean>(false)
   const [searchData, setsearchData] = useState<IPropsForMarkers[]>()
+  const [thirdRange, setthirdRange] = useState<IPropsForMarkers[]>()
   useEffect(() => {
   }, [markers])
 
@@ -94,7 +95,8 @@ export default function App() {
       }
       list.push(data)
     }
-    setthirdq(list)
+    console.log(data)
+    setthirdRange(list)
   })
 
   socket.on('5year-trend', (data) => {
@@ -175,7 +177,7 @@ export default function App() {
   return (
     <>
       <Select markers={markers!} setmarkers={setmarkers} filter={filter} setFilter={setFilter} queries={queries} setqueries={setqueries} />
-      <DisplayPage searchData={searchData!} fifth={fifth!} setthirdq={setthirdq} thirdq={thirdq!} firstq={firstq!} markers={markers!} setmarkers={setmarkers} filter={filter} setFilter={setFilter} queries={queries} setqueries={setqueries} topFive={topFive!} setTopFive={setTopFive} sixth={sixth!} setSixth={setSixth} fourth={fourth!} searchBool={searchBool} setsearchBool={setsearchBool}/>
+      <DisplayPage thirdRange={thirdRange!} searchData={searchData!} fifth={fifth!} setthirdq={setthirdq} thirdq={thirdq!} firstq={firstq!} markers={markers!} setmarkers={setmarkers} filter={filter} setFilter={setFilter} queries={queries} setqueries={setqueries} topFive={topFive!} setTopFive={setTopFive} sixth={sixth!} setSixth={setSixth} fourth={fourth!} searchBool={searchBool} setsearchBool={setsearchBool}/>
     </>
   )
 }

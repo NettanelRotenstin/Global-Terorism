@@ -200,6 +200,7 @@ export default function Select({ markers, setmarkers, filter, setFilter, queries
   }
 
   const sendEmitRangeYear = () => {
+    console.log(yearstart,12,yearend)
     socket.emit('year-range-trend', yearstart, yearend)
     setyearstartBool(false)
     setyearendBool(false)
