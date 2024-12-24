@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import IPropsForMarkers from '../../Types/interfaces/IPropsForMarker';
 import IQuery from '../../Types/interfaces/IQuery';
 import { LatLngExpression } from 'leaflet';
+import { socket } from '../../main';
 
 interface Props {
     markers: IPropsForMarkers[];
@@ -19,8 +20,72 @@ interface Props {
     searchBool: boolean
     setsearchBool: (n: any) => void;
     searchData: IPropsForMarkers[]
+    create: boolean
+    setcreate: (n: any) => void;
 }
-export default function Map({ filter, setFilter, queries, setqueries, markers, setmarkers, setTopFive, topFive, setSixth, sixth, searchBool, setsearchBool, searchData }: Props) {
+export default function Map({ create, setcreate, filter, setFilter, queries, setqueries, markers, setmarkers, setTopFive, topFive, setSixth, sixth, searchBool, setsearchBool, searchData }: Props) {
+    const [addForm, setAddForm] = useState(false)
+    const [lat, setlat] = useState<number>()
+    const [lon, setlon] = useState<number>()
+    const [eventid, seteventid] = useState<number>()
+    const [year, setyear] = useState<number>()
+    const [month, setmonth] = useState<number>()
+    const [iday, setiday] = useState<number>()
+    const [country, setcountry] = useState<string>()
+    const [region, setregion] = useState<string>()
+    const [city, setcity] = useState<string>()
+    const [attackType, setattackType] = useState<string>()
+    const [targtype1_txt, settargtype1_txt] = useState<string>()
+    const [target1, settarget1] = useState<string>()
+    const [organName, setorganName] = useState<string>()
+    const [weaptype1_txt, setweaptype1_txt] = useState<string>()
+    const [nkill, setnkill] = useState<number>()
+    const [nwound, setnwound] = useState<number>()
+    const [nperps, setnperps] = useState<number>()
+    const [summary, setsummary] = useState<string>()
+
+    const handelAddAttack = () => {
+        socket.emit('post-event', {
+            lat,
+            lon,
+            eventid,
+            year,
+            month,
+            iday,
+            country,
+            region,
+            city,
+            attackType,
+            targtype1_txt,
+            target1,
+            organName,
+            weaptype1_txt,
+            nkill,
+            nwound,
+            nperps,
+            summary
+        })
+        setAddForm(false)
+
+    }
+    const handelAdd = () => {
+        setAddForm(true)
+    }
+    const MyComponent = () => {
+        const map = useMapEvents({
+            click: (e) => {
+                setlat(e.latlng.lat)
+                setlon(e.latlng.lng)
+                map.getZoom()
+                handelAdd()
+            },
+            locationfound: (location) => {
+
+                console.log('location found:', location.latlng)
+            },
+        })
+        return null
+    }
     function SetMapCenter({ center }: { center: [number, number] }) {
         const map = useMap()
 
@@ -76,6 +141,35 @@ export default function Map({ filter, setFilter, queries, setqueries, markers, s
     }
     return (
         <>
+            <button onClick={() => setcreate(!create)}>{create ? "x" : "+"}</button>
+
+            {create && <MapContainer center={[0, 0]} zoom={3} scrollWheelZoom={false} style={{ height: "80vh", width: '80vw' }}>
+                <SetMapCenter center={[0, 0]} />
+                <MyComponent />
+                <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+            </MapContainer>}
+            {addForm && <div style={{ display: 'flex', flexDirection: "column" }}>
+                <input required placeholder='eventid' type="number" value={eventid!} onChange={(e) => seteventid(e.target.valueAsNumber)} />
+                <input required placeholder='year' type="number" value={year} onChange={(e) => setyear(e.target.valueAsNumber)} />
+                <input required placeholder='month' type="number" value={month} onChange={(e) => setmonth(e.target.valueAsNumber)} />
+                <input required placeholder='iday' type="number" value={iday} onChange={(e) => setiday(e.target.valueAsNumber)} />
+                <input required placeholder='country' type="text" value={country} onChange={(e) => setcountry(e.target.value)} />
+                <input required placeholder='region' type="text" value={region} onChange={(e) => setregion(e.target.value)} />
+                <input required placeholder='city' type="text" value={city} onChange={(e) => setcity(e.target.value)} />
+                <input required placeholder='lat' type="number" value={lat} onChange={(e) => setlat(e.target.valueAsNumber)} />
+                <input required placeholder='lon' type="number" value={lon} onChange={(e) => setlon(e.target.valueAsNumber)} />
+                <input required placeholder='attackType' type="text" value={attackType} onChange={(e) => setattackType(e.target.value)} />
+                <input required placeholder='targtype1_txt' type="text" value={targtype1_txt} onChange={(e) => settargtype1_txt(e.target.value)} />
+                <input required placeholder='target1' type="text" value={target1} onChange={(e) => settarget1(e.target.value)} />
+                <input required placeholder='organName' type="text" value={organName} onChange={(e) => setorganName(e.target.value)} />
+                <input required placeholder='weaptype1_txt' type="text" value={weaptype1_txt} onChange={(e) => setweaptype1_txt(e.target.value)} />
+                <input required placeholder='nkill' type="number" value={nkill} onChange={(e) => setnkill(e.target.valueAsNumber)} />
+                <input required placeholder='nwound' type="number" value={nwound} onChange={(e) => setnwound(e.target.valueAsNumber)} />
+                <input required placeholder='nperps' type="number" value={nperps} onChange={(e) => setnperps(e.target.valueAsNumber)} />
+                <input required placeholder='summary' type="text" value={summary} onChange={(e) => setsummary(e.target.value)} />
+                <button onClick={handelAddAttack}> +</button>
+            </div>}
             {(markers != undefined || searchBool) &&
                 <div style={{ height: '80vh', borderRightColor: 'red' }}>
                     {filter == 2 ? <div>
