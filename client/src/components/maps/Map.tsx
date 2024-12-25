@@ -189,6 +189,7 @@ export default function Map({ create, setcreate, filter, setFilter, queries, set
                         </div>
                             :
                             searchBool ? <div>
+                                <button onClick={()=>setsearchBool(false)}>X</button>
                                 <MapContainer center={myCenterSearch() as LatLngExpression | undefined} zoom={10} scrollWheelZoom={false} style={{ height: "80vh" }}>
                                     <SetMapCenter center={myCenterSearch() as [number, number]} />
                                     <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
